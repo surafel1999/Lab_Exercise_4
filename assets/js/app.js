@@ -69,69 +69,74 @@ function createAccount() {
     ourBank.addAccount(new Account("Kidus", "Yo", 1, 10000));
     ourBank.addAccount(new Account("Naboni", "adsf", 2, 1000));
     ourBank.addAccount(new Account("Nabek", "Alemu", 3, 1900))
-
-    let option = prompt("Enter the service from below:\n1. Create account\n2. Withdraw\n3. Deposit\n4. Balance\n5. Transfer\n6. Terminate program");
-    let accounts = ourBank.getAccount();
+    let run = true;
+    do {
+        let option = prompt("Enter the service from below:\n1. Create account\n2. Withdraw\n3. Deposit\n4. Balance\n5. Transfer\n6. Terminate");
+        let accounts = ourBank.getAccount();
+        
+        
+        switch (option) {
+            case "1":
+                createAccount();
+                break;
     
-
-    switch (option) {
-        case "1":
-            createAccount();
-            break;
-
-        case "2":
-            id = prompt("Enter account's id:");
-            amount = Number(prompt("Enter withdrawal amount:"));
-            for (account of accounts) {
-                if (account.id == id) {
-                    if (account.withdraw(amount)) 
-                        alert(`Your request is successful!`);
-                    else
-                        alert(`Your request is not succesfull`);
-                } 
-            }
-            break; 
-
-        case "3":
-            id = prompt("Enter account's id:");
-            amount = Number(prompt("Enter the amount:"));
-            for (account of accounts) {
-                if (account.id == id) {
-                    if (account.deposit(amount)) 
-                        alert(`Your request is successful!`);
-                    else
-                        alert(`Your request is not succesfull`);
-                } 
-            }
-            break; 
-
-        case "4":
-            id = prompt("Enter account's id:");
-            for (account of accounts) {
-                if (account.id == id) {
-                    alert(`Your remaining amount is ${account.balance()} birr!`);
-                } 
-            } 
-            break;
-        
-        case "5":
-            let senderId = prompt("Enter sender account's id:");
-            let recieverId = prompt("Enter reciever account id:");
-            amount = Number(prompt("Enter the amount:"));
-            let senderAccount, recieverAccount;
-            for (account of accounts) {
-                if (account.id == senderId) {
-                    senderAccount = account;
-                } else if (account.id == recieverId) {
-                    recieverAccount = account
+            case "2":
+                id = prompt("Enter account's id:");
+                amount = Number(prompt("Enter withdrawal amount:"));
+                for (account of accounts) {
+                    if (account.id == id) {
+                        if (account.withdraw(amount)) 
+                            alert(`Your request is successful!`);
+                        else
+                            alert(`Your request is not succesfull`);
+                    } 
                 }
-            } if (senderAccount.transfer(recieverAccount, amount))
-                alert(`Your request is successful!`);
-            else 
-                alert(`Your request is not succesfull`);
-            break;
-        
-        default:
-            alert("Wrong input!");
-    }
+                break; 
+    
+            case "3":
+                id = prompt("Enter account's id:");
+                amount = Number(prompt("Enter the amount:"));
+                for (account of accounts) {
+                    if (account.id == id) {
+                        account.deposit(amount) 
+                        alert(`Your request is successful!`);
+                    } 
+                }
+                break; 
+    
+            case "4":
+                id = prompt("Enter account's id:");
+                for (account of accounts) {
+                    if (account.id == id) {
+                        alert(`Your remaining amount is ${account.balance()} birr!`);
+                    } 
+                } 
+                break;
+            
+            case "5":
+                let senderId = prompt("Enter sender account's id:");
+                let recieverId = prompt("Enter reciever account id:");
+                amount = Number(prompt("Enter the amount:"));
+                let senderAccount, recieverAccount;
+                for (account of accounts) {
+                    if (account.id == senderId) {
+                        senderAccount = account;
+                    } else if (account.id == recieverId) {
+                        recieverAccount = account
+                    }
+                } if (senderAccount.transfer(recieverAccount, amount))
+                    alert(`Your request is successful!`);
+                else 
+                    alert(`Your request is not succesfull`);
+                break;
+            case "6":
+                run = false;
+                break;
+            
+            default:
+                alert("Wrong input!");
+        }
+
+    } while (true)
+
 })();
