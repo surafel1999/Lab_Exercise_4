@@ -17,12 +17,12 @@ function mult(numbers) {
 }
 
 function div(numbers) {
-    let result = 1;
-    for (number of numbers) {
-        if (number == 0) 
+    let result = numbers[0];
+    for (let i=1; i < numbers.length; i++) {
+        if (numbers[i] == 0) 
             return "undefined";    
         else
-            result /= number;
+            result /= numbers[i];
     }
     return result;
 }
